@@ -79,7 +79,7 @@ npm start
 6. **Indexing** - Revolutionary AI indexing with all 6 technologies
 
 ### Resume Analyzer
-- **AI-Powered Analysis** - Gemini 1.5 Flash integration
+- **AI-Powered Analysis** - Gemini 3.0 -Flash - preview integration
 - **Skill Gap Identification** - Comprehensive skill matching
 - **ATS Scoring** - Applicant Tracking System compatibility
 - **Personalized Recommendations** - Actionable career advice
@@ -213,9 +213,9 @@ NEO4J_PASSWORD=...
 GEMINI_API_KEY=...
 
 # Model Configuration
-DRAFTER_MODEL=gemini-1.5-flash
-VERIFIER_MODEL=gemini-1.5-flash
-FALLBACK_MODEL=gemini-1.5-flash
+DRAFTER_MODEL=gemini 3.0 -Flash - preview
+VERIFIER_MODEL=Gemini 3.0 -Flash - preview
+FALLBACK_MODEL=Gemini 3.0 -Flash - preview
 ```
 
 ## Security Features
