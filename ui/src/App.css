@@ -1,0 +1,25 @@
+.App {
+  text-align: center;
+}
+
+.brand-header {
+  background: linear-gradient(45deg, #4aa3ff, #f59e0b);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  font-weight: 700;
+  letter-spacing: -0.01em;
+}
+
+.soft-elevated {
+  background: rgba(23, 27, 34, 0.8);
+  backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  transition: all 0.3s ease;
+}
+
+.soft-elevated:hover {
+  border-color: rgba(74, 163, 255, 0.25);
+  box-shadow: 0 12px 28px rgba(15, 17, 21, 0.45);
+  transform: translateY(-2px);
+}
