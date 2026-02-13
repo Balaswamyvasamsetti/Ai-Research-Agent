@@ -5,7 +5,7 @@ class Settings(BaseSettings):
     database_url: str = "postgresql://postgres:postgres@localhost:5432/agentic_rag"
     neo4j_url: str = "bolt://localhost:7687"
     neo4j_user: str = "neo4j"
-    neo4j_password: str = "password"
+    neo4j_password: str = "VOddd2Df_hYYPGfj_B00JVlrzDrMSgq97W73CcOnkt4"
     neo4j_database: str = "neo4j"
     ollama_url: str = "http://localhost:11434"
     ollama_model: str = "llama3:7b"
