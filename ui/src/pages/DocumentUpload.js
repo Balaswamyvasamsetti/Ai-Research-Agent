@@ -79,12 +79,12 @@ const DocumentUpload = () => {
   return (
     <Box sx={{ pt: 8, minHeight: '100vh', display: 'flex', flexDirection: 'column' }}>
       <Box sx={{ flex: 1, p: 3 }}>
-      <Typography variant="h4" gutterBottom sx={{ color: '#4aa3ff', mb: 4 }}>
+      <Typography variant="h4" gutterBottom sx={{ color: 'primary.main', mb: 4 }}>
         Document Upload
       </Typography>
 
       <Paper sx={{ p: 3, mb: 3 }}>
-        <Typography variant="h6" gutterBottom sx={{ color: '#4aa3ff' }}>
+        <Typography variant="h6" gutterBottom sx={{ color: 'primary.main' }}>
           Add documents to your workspace
         </Typography>
         <Typography variant="body2" color="text.secondary" paragraph>
@@ -94,16 +94,17 @@ const DocumentUpload = () => {
 
         <Box
           sx={{
-            border: '2px dashed rgba(74, 163, 255, 0.4)',
+            border: '2px dashed',
+            borderColor: 'primary.main',
             borderRadius: 2,
             p: 4,
             textAlign: 'center',
             mb: 3,
             cursor: 'pointer',
             transition: 'all 0.2s ease',
-            backgroundColor: isDragActive ? 'rgba(74, 163, 255, 0.08)' : 'transparent',
+            backgroundColor: isDragActive ? 'rgba(0, 0, 0, 0.05)' : 'transparent',
             '&:hover': {
-              backgroundColor: 'rgba(74, 163, 255, 0.05)',
+              backgroundColor: 'rgba(0, 0, 0, 0.03)',
             },
           }}
           onClick={() => document.getElementById('file-input').click()}
@@ -111,7 +112,7 @@ const DocumentUpload = () => {
           onDragOver={handleDragOver}
           onDragLeave={handleDragLeave}
         >
-          <CloudUpload sx={{ fontSize: 48, color: '#4aa3ff', mb: 2 }} />
+          <CloudUpload sx={{ fontSize: 48, color: 'primary.main', mb: 2 }} />
           <Typography variant="h6" gutterBottom>
             Drag files here or click to browse
           </Typography>

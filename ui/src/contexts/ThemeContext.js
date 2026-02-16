@@ -30,9 +30,9 @@ export const ThemeModeProvider = ({ children }) => {
     palette: {
       mode,
       primary: {
-        main: '#2563eb',
-        light: '#3b82f6',
-        dark: '#1d4ed8',
+        main: mode === 'dark' ? '#ffffff' : '#000000',
+        light: mode === 'dark' ? '#f5f5f5' : '#333333',
+        dark: mode === 'dark' ? '#e0e0e0' : '#000000',
       },
       secondary: {
         main: '#64748b',

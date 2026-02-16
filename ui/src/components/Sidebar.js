@@ -162,17 +162,20 @@ const Sidebar = ({ open, onToggle, isMobile }) => {
                 minHeight: 48,
                 justifyContent: open ? 'initial' : 'center',
                 '&.Mui-selected': {
-                  backgroundColor: 'primary.main',
-                  color: 'white',
+                  backgroundColor: theme.palette.mode === 'dark' ? '#ffffff' : '#000000',
+                  color: theme.palette.mode === 'dark' ? '#000000' : '#ffffff',
                   '&:hover': {
-                    backgroundColor: 'primary.dark',
+                    backgroundColor: theme.palette.mode === 'dark' ? '#e0e0e0' : '#333333',
                   },
                   '& .MuiListItemIcon-root': {
-                    color: 'white',
+                    color: theme.palette.mode === 'dark' ? '#000000' : '#ffffff',
+                  },
+                  '& .MuiListItemText-secondary': {
+                    color: theme.palette.mode === 'dark' ? 'rgba(0,0,0,0.6)' : 'rgba(255,255,255,0.7)',
                   },
                 },
                 '&:hover': {
-                  backgroundColor: 'rgba(37, 99, 235, 0.08)',
+                  backgroundColor: theme.palette.mode === 'dark' ? 'rgba(255,255,255,0.08)' : 'rgba(0,0,0,0.08)',
                 },
               }}
             >

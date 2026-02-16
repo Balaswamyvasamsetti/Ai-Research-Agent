@@ -387,8 +387,8 @@ const QueryInterface = () => {
           sx={{
             p: 2,
             maxWidth: '70%',
-            backgroundColor: isUser ? 'primary.main' : 'background.paper',
-            color: isUser ? 'primary.contrastText' : 'text.primary',
+            backgroundColor: isUser ? theme.palette.mode === 'dark' ? '#ffffff' : '#000000' : 'background.paper',
+            color: isUser ? theme.palette.mode === 'dark' ? '#000000' : '#ffffff' : 'text.primary',
             borderRadius: 2,
             border: isUser ? 'none' : '1px solid',
             borderColor: 'divider',
@@ -417,12 +417,12 @@ const QueryInterface = () => {
               {/* Timestamp at bottom for user messages */}
               <Typography 
                 variant="caption" 
-                color={isUser ? 'primary.contrastText' : 'text.secondary'}
                 sx={{ 
                   fontSize: '0.65rem',
                   opacity: 0.7,
                   mt: 1,
-                  display: 'block'
+                  display: 'block',
+                  color: theme.palette.mode === 'dark' ? '#000000' : '#ffffff',
                 }}
               >
                 {new Date(message.timestamp).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}
@@ -665,7 +665,7 @@ const QueryInterface = () => {
                       borderRadius: 1,
                       p: 1.5,
                       backgroundColor: selectedDocuments.includes(doc.id) 
-                        ? theme.palette.mode === 'dark' ? 'rgba(59, 130, 246, 0.15)' : 'rgba(59, 130, 246, 0.08)'
+                        ? theme.palette.mode === 'dark' ? 'rgba(255, 255, 255, 0.1)' : 'rgba(0, 0, 0, 0.05)'
                         : 'transparent',
                       '&:hover': {
                         backgroundColor: theme.palette.mode === 'dark' ? 'rgba(255, 255, 255, 0.05)' : 'rgba(0, 0, 0, 0.03)',
