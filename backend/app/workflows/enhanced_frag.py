@@ -67,7 +67,7 @@ async def process_enhanced_query(query: str, document_ids: List[int] = None) -> 
         )
         
         print(f"\n{'='*80}")
-        print(f"🎯 COMBINED CONFIDENCE: {combined_confidence:.2f}")
+        print(f" COMBINED CONFIDENCE: {combined_confidence:.2f}")
         print(f"{'='*80}")
         
         return QueryResponse(

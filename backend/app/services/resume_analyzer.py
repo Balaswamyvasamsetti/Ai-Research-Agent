@@ -31,72 +31,45 @@ async def analyze_resume_with_gemini(pdf_content: bytes, job_description: str) -
     if not resume_text:
         raise Exception("Could not extract text from PDF")
     
-    # Create Gemini model
-    model = genai.GenerativeModel('gemini-3-flash-preview')
+    # Limit text length for faster processing
+    resume_text = resume_text[:4000]
+    job_description = job_description[:2000]
     
-    # Comprehensive analysis prompt
-    prompt = f"""
-    You are an expert HR professional and resume analyst. Analyze the following resume against the job description and provide a comprehensive analysis.
+    # Create Gemini model with faster settings
+    model = genai.GenerativeModel(
+        'gemini-3-flash-preview',
+        generation_config={
+            'temperature': 0.3,
+            'top_p': 0.8,
+            'top_k': 20,
+            'max_output_tokens': 2048,
+        }
+    )
+    
+    # Simplified prompt for faster response
+    prompt = f"""Analyze this resume against the job description. Provide JSON only, no markdown.
 
-    RESUME:
-    {resume_text}
+RESUME: {resume_text}
 
-    JOB DESCRIPTION:
-    {job_description}
+JOB: {job_description}
 
-    Please provide a detailed analysis in the following JSON format:
-
-    {{
-        "overall_score": <number between 0-100>,
-        "analysis_summary": "<brief 2-3 sentence summary>",
-        "matched_skills": [
-            {{"skill": "<skill name>", "confidence": <0-100>, "evidence": "<where found in resume>"}}
-        ],
-        "missing_skills": [
-            {{"skill": "<skill name>", "importance": "<high/medium/low>", "category": "<technical/soft/domain>"}}
-        ],
-        "strengths": [
-            {{"strength": "<strength description>", "impact": "<high/medium/low>"}}
-        ],
-        "weaknesses": [
-            {{"weakness": "<weakness description>", "severity": "<high/medium/low>"}}
-        ],
-        "recommendations": [
-            {{"recommendation": "<specific actionable advice>", "priority": "<high/medium/low>", "timeframe": "<short/medium/long term>"}}
-        ],
-        "experience_analysis": {{
-            "years_of_experience": <number>,
-            "relevant_experience": "<percentage match>",
-            "career_progression": "<assessment>",
-            "industry_fit": "<assessment>"
-        }},
-        "education_analysis": {{
-            "degree_relevance": "<high/medium/low>",
-            "certifications": ["<list of relevant certifications>"],
-            "missing_certifications": ["<list of recommended certifications>"]
-        }},
-        "ats_score": {{
-            "keyword_match": <0-100>,
-            "format_score": <0-100>,
-            "readability": <0-100>
-        }},
-        "salary_insights": {{
-            "estimated_fit": "<underqualified/qualified/overqualified>",
-            "market_position": "<below/at/above market rate>"
-        }}
-    }}
-
-    Ensure all scores are realistic and based on actual content analysis. Be specific and actionable in recommendations.
-    """
+Return JSON:
+{{
+    "overall_score": <0-100>,
+    "analysis_summary": "<2 sentences>",
+    "matched_skills": [{{"skill": "<name>", "confidence": <0-100>}}],
+    "missing_skills": [{{"skill": "<name>", "importance": "high/medium/low"}}],
+    "strengths": [{{"strength": "<text>"}}],
+    "weaknesses": [{{"weakness": "<text>"}}],
+    "recommendations": [{{"recommendation": "<text>"}}]
+}}
+"""
     
     try:
-        # Generate analysis
         response = model.generate_content(prompt)
-        
-        # Parse JSON response
         analysis_text = response.text
         
-        # Clean up the response to extract JSON
+        # Extract JSON
         start_idx = analysis_text.find('{')
         end_idx = analysis_text.rfind('}') + 1
         
@@ -106,10 +79,7 @@ async def analyze_resume_with_gemini(pdf_content: bytes, job_description: str) -
         json_str = analysis_text[start_idx:end_idx]
         analysis = json.loads(json_str)
         
-        # Validate and ensure all required fields exist
-        analysis = validate_analysis_response(analysis)
-        
-        return analysis
+        return validate_analysis_response(analysis)
         
     except json.JSONDecodeError as e:
         raise Exception(f"Failed to parse AI response: {str(e)}")

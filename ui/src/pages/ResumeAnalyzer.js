@@ -30,7 +30,7 @@ import {
   Star,
   Lightbulb,
 } from '@mui/icons-material';
-import { queryAPI } from '../services/api';
+import api from '../services/api';
 import { useAppContext } from '../contexts/AppContext';
 import Footer from '../components/Footer';
 
@@ -63,21 +63,17 @@ const ResumeAnalyzer = () => {
       formData.append('file', resumeData.resume);
       formData.append('job_description', resumeData.jobDescription);
 
-      const response = await fetch('http://localhost:8080/analyze-resume', {
-        method: 'POST',
-        body: formData,
+      const response = await api.post('/analyze-resume', formData, {
+        headers: {
+          'Content-Type': 'multipart/form-data',
+        },
+        timeout: 180000,
       });
 
-      if (!response.ok) {
-        const error = await response.json();
-        throw new Error(error.detail || 'Analysis failed');
-      }
-
-      const result = await response.json();
-      updateResumeData({ analysis: result, loading: false });
+      updateResumeData({ analysis: response.data, loading: false });
     } catch (error) {
       console.error('Analysis failed:', error);
-      alert(`Analysis failed: ${error.message}`);
+      alert(`Analysis failed: ${error.response?.data?.detail || error.message}`);
       updateResumeData({ loading: false });
     }
   };

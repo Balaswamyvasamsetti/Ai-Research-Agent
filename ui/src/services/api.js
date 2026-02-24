@@ -4,7 +4,7 @@ const API_BASE_URL = process.env.REACT_APP_API_URL || 'http://localhost:8000';
 
 const api = axios.create({
   baseURL: API_BASE_URL,
-  timeout: 60000,
+  timeout: 180000,
   headers: {
     'Content-Type': 'application/json',
   },
@@ -79,6 +79,7 @@ export const queryAPI = {
         total_agents: 50,
         specialization_distribution: { explorer: 30, exploiter: 15, scout: 5 },
         global_best_score: 0.94,
+        consensus_score: 0.92,
         convergence_measure: 0.12
       };
     }
